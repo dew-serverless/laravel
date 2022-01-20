@@ -1,0 +1,38 @@
+edition: 1.0.0
+name: propeller
+access: "default"
+
+services:
+  propeller:
+    component: devsapp/fc
+    props:
+      region: us-west-1
+      service:
+        name: propeller
+        internetAccess: true
+        logConfig: auto
+      function:
+        name: http
+        description: Serving from HTTP requests.
+        runtime: custom
+        layers:
+          - 2a1cbf79fac6f0fad5c0bbbf6ba72551#propeller-php-81#3
+        codeUri: ./fc
+        memorySize: 128
+        timeout: 60
+      triggers:
+        - name: http
+          type: http
+          config:
+            authType: anonymous
+            methods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - HEAD
+      customDomains:
+        - domainName: auto
+          protocol: HTTP
+          routeConfigs:
+            - path: /*
