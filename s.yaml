@@ -20,6 +20,9 @@ services:
         codeUri: ./fc
         memorySize: 128
         timeout: 60
+        environmentVariables:
+          APP_NAME: Propeller
+          LOG_CHANNEL: stderr
       triggers:
         - name: http
           type: http
